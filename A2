@@ -1,0 +1,161 @@
+### An introduction to R programming language
+# The symbol "#" precedes anything that is a message/note for you, the user. More "##" symbols mean it's a header, or important message/note.
+# The symbol "<-" is an arrow pointing left. Whatever is to the left of the arrow will thereafter be treated as equivalent to whatever is to the right.
+# The symbol "^" precedes an exponent. For example, five squared is written: 5^2
+# The function "sqrt()" takes the square root of whatever numbers are between the paretheses. For example, the square root of 4 is written: sqrt(4)
+# The function "abs()" takes the absolute value of whatever numbers are between the paretheses. For example, the absolute value of negative one is written: abs(-1)
+# To run the code, select all and press Command+Enter
+
+
+## Let's define the coordinates of our locations
+
+# Define Home coordinates ... x, y
+Hx <- 2.5
+Hy <- 4.5
+
+# Define C
+Cx <- 3       # x = 3, defined as "Cx"
+Cy <- 5.5     # y = 5.5, defined as "Cy"
+attr_C <- 33  # attractiveness = 33, defined as "attr_C"
+
+# Define L
+Lx <- 11.5    # x = 11.5, defined as "Lx"
+Ly <- 6       # y = 6, defined as "Ly"
+attr_L <- 67  # attractiveness = 67, defined as "attr_L"
+
+# Define S
+Sx <- 14.5    # x = 14.5, defined as "Sx"
+Sy <- 5       # y = 5, defined as "Sy"
+attr_S <- 76  # attractiveness = 76, defined as "attr_S"
+
+
+
+
+############## City-Block Calculations ##############
+
+### Let's calculate the city-block distances ###
+# City-Block Distance = |X2-X1| + |Y2-Y1|
+
+# City-block distance between H and C
+city_C <- abs(Hx-Cx) + abs(Hy-Cy)
+
+# City-block distance between H and L
+city_L <- abs(Hx-Lx) + abs(Hy-Ly)
+
+# City-block distance between H and S
+city_S <- abs(Hx-Sx) + abs(Hy-Sy)
+
+
+### Now let's calculate the city-block gravities ###
+# Gravity = Attractiveness / distance^squared, or: G = A/d^2
+
+# City-block gravity of C, which is the numerator of Huff equation for city_C
+city_C_g <- attr_C / city_C^2
+
+# City-block gravity of L, which is the numerator of Huff equation for city_L
+city_L_g <- attr_L / city_L^2
+
+# City-block gravity of S, which is the numerator of Huff equation for city_S
+city_S_g <- attr_S / city_S^2
+
+# Sum of city-block gravities, which is the denominator of the Huff equation for city-block calculations
+city_sum_g <- city_C_g + city_L_g + city_S_g
+
+
+### Finally, let's calculate the city-block probabilities ###
+# Probability = Gravity / Sum of all Gravities
+
+# City-block probability of C (Huff equation)
+city_C_prob <- city_C_g / city_sum_g
+
+# City-block probability of L (Huff equation)
+city_L_prob <- city_L_g / city_sum_g
+
+# City-block probability of S (Huff equation)
+city_S_prob <- city_S_g / city_sum_g
+
+
+
+############## Straight-line Calculations ##############
+
+### Let's calculate the straight-line distances ###
+# Straight-line Distance = √ (X2-X1)^2 + (Y2-Y1)^2
+
+# Straight-line distance between H and C
+str_C <- sqrt( (Hx-Cx)^2 + (Hy-Cy)^2 )
+
+# Straight-line distance between H and L
+str_L <- sqrt( (Hx-Lx)^2 + (Hy-Ly)^2 )
+
+# Straight-line distance between H and S
+str_S <- sqrt( (Hx-Sx)^2 + (Hy-Sy)^2 )
+
+
+### Now let's calculate the straight-line gravities ###
+# Gravity = Attractiveness / distance^squared, or: G = A/d^2
+
+# Straight-line gravity of C, which is the numerator of Huff equation for str_C
+str_C_g <- attr_C / str_C^2
+
+# Straight-line gravity of L, which is the numerator of Huff equation for str_L
+str_L_g <- attr_L / str_L^2
+
+# Straight-line gravity of S, which is the numerator of Huff equation for str_S
+str_S_g <- attr_S / str_S^2
+
+# Sum of straight-line gravities, which is the denominator of the Huff equation for straight-line calculations
+str_sum_g <- str_C_g + str_L_g + str_S_g
+
+
+### Finally, let's calculate the straight-line probabilities ###
+# Probability = Gravity / Sum of all Gravities
+
+# Straight-line probability of C (Huff equation)
+str_C_prob <- str_C_g / str_sum_g
+
+# Straight-line probability of L (Huff equation)
+str_L_prob <- str_L_g / str_sum_g
+
+# Straight-line probability of S (Huff equation)
+str_S_prob <- str_S_g / str_sum_g
+
+
+
+
+############## Print out results to look over ############## 
+# Don't worry about how this part of the code works! Just run it to print all the results in one place.
+
+results <- paste0(
+"\n",
+"\n CITY BLOCK \n",
+  
+"• distance to C is ", city_C, "\n",
+"• distance to L is ", city_L, "\n",
+"• distance to S is ", city_S, "\n",
+"\n",
+"• numerator of the Huff Equation for C is ", round(city_C_g, 2), "\n",
+"• numerator of the Huff Equation for L is ", round(city_L_g, 2), "\n",
+"• numerator of the Huff Equation for S is ", round(city_S_g, 2), "\n",
+"• denominator for the Huff Equation is ", round(city_sum_g, 2), "\n",
+"\n",
+"• probability (Huff Equation) for C is ", round(city_C_prob, 2), "\n",
+"• probability (Huff Equation) for L is ", round(city_L_prob, 2), "\n",
+"• probability (Huff Equation) for S is ", round(city_S_prob, 2), "\n",
+"\n",
+"\n STRAIGHT LINE \n",
+
+"• distance to C is ", round(str_C, 2), "\n",
+"• distance to L is ", round(str_L, 2), "\n",
+"• distance to S is ", round(str_S, 2), "\n",
+"\n",
+"• numerator of the Huff Equation for C is ", round(str_C_g, 2), "\n",
+"• numerator of the Huff Equation for L is ", round(str_L_g, 2), "\n",
+"• numerator of the Huff Equation for S is ", round(str_S_g, 2), "\n",
+"• denominator for the Huff Equation is ", round(str_sum_g, 2), "\n",
+"\n",
+"• probability (Huff Equation) for C is ", round(str_C_prob, 2), "\n",
+"• probability (Huff Equation) for L is ", round(str_L_prob, 2), "\n",
+"• probability (Huff Equation) for S is ", round(str_S_prob, 2), "\n"
+)
+
+cat(results)
